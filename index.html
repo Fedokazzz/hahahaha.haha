@@ -25,7 +25,6 @@
         linear-gradient(135deg, #11113a, #24105c, #0b1026);
     }
 
-    /* Светящиеся круги */
     body::before,
     body::after {
       content: "";
@@ -55,6 +54,7 @@
       from {
         transform: translate(0, 0);
       }
+
       to {
         transform: translate(60px, -40px);
       }
@@ -93,8 +93,15 @@
       color: rgba(255, 255, 255, 0.85);
     }
 
-    button {
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
       margin-top: 20px;
+    }
+
+    button {
       padding: 17px 38px;
 
       font-size: 19px;
@@ -120,11 +127,209 @@
     button:active {
       transform: scale(0.96);
     }
+
+    .locker-button {
+      background: linear-gradient(135deg, #ff3131, #b40000);
+      box-shadow: 0 10px 25px rgba(255, 0, 0, 0.35);
+    }
+
+    .locker-button:hover {
+      box-shadow: 0 15px 35px rgba(255, 0, 0, 0.55);
+    }
+
+    /* Затемнение */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+
+      display: none;
+      justify-content: center;
+      align-items: center;
+
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    /* Окно имитации */
+    .locker {
+      position: relative;
+
+      width: min(92%, 500px);
+      padding: 30px;
+
+      background: #f4f4f4;
+      color: #222;
+
+      border-radius: 12px;
+      border: 1px solid #aaa;
+
+      box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.7);
+
+      text-align: center;
+
+      animation: lockerAppear 0.25s ease-out;
+    }
+
+    @keyframes lockerAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .locker h2 {
+      margin: 5px 0 20px;
+      font-size: 25px;
+    }
+
+    .warning {
+      padding: 10px;
+      margin-bottom: 12px;
+
+      color: #8a4b00;
+      background: #fff0d0;
+
+      border: 1px solid #e2b66d;
+      border-radius: 7px;
+
+      font-size: 13px;
+    }
+09:54
+.timer {
+      margin: 15px 0;
+
+      font-size: 28px;
+      font-weight: bold;
+
+      color: #e00000;
+    }
+
+    .locker label {
+      display: block;
+      margin-bottom: 8px;
+
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .password {
+      width: 80%;
+      padding: 12px;
+
+      font-size: 20px;
+      text-align: center;
+
+      border: 1px solid #999;
+      border-radius: 6px;
+
+      outline: none;
+    }
+
+    .password:focus {
+      border-color: #006cff;
+      box-shadow: 0 0 0 2px rgba(0, 108, 255, 0.15);
+    }
+
+    .unlock {
+      margin-top: 15px;
+      padding: 12px 25px;
+
+      font-size: 16px;
+
+      background: #006cff;
+      border-radius: 7px;
+      box-shadow: none;
+    }
+
+    .unlock:hover {
+      box-shadow: 0 5px 15px rgba(0, 100, 255, 0.3);
+    }
+
+    .exit {
+      display: block;
+
+      margin: 15px auto 0;
+      padding: 8px 18px;
+
+      font-size: 13px;
+      font-weight: normal;
+
+      color: #555;
+      background: #ddd;
+
+      box-shadow: none;
+    }
+
+    .exit:hover {
+      background: #ccc;
+      box-shadow: none;
+    }
+
+    .hint {
+      margin-top: 15px;
+
+      color: #777;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* Сообщения */
+    .message {
+      display: none;
+
+      position: fixed;
+      z-index: 200;
+
+      left: 50%;
+      top: 50%;
+
+      transform: translate(-50%, -50%);
+
+      width: min(90%, 400px);
+      padding: 25px;
+
+      background: white;
+      color: #222;
+
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+
+      text-align: center;
+    }
+
+    .message.active {
+      display: block;
+    }
+
+    .message h3 {
+      margin-top: 0;
+    }
+
+    .message button {
+      margin-top: 15px;
+      padding: 10px 25px;
+
+      font-size: 15px;
+      background: #006cff;
+      box-shadow: none;
+    }
   </style>
 </head>
 
 <body>
 
+  <!-- Главная карточка -->
   <div class="card">
 
     <h1>🤯  ТЫ НЕ ПОВЕРИШЬ!</h1>
@@ -132,17 +337,220 @@
     <p>
       Этот сайт настолько важный, что его нельзя просто так закрыть.
       <br><br>
+
       Здесь находится информация, которая изменит твою жизнь.
       Возможно.
       <br><br>
+
       Нажми кнопку. Ну давай. Чего ты боишься? 💀 
     </p>
 
-    <button onclick="location.href='https://youtu.be/dQw4w9WgXcQ?si=Tssh4ZjpdSwDErZF'">
-      🔵  НАЖАТЬ СЮДА
+    <div class="buttons">
+
+      <!-- Первая кнопка -->
+      <button onclick="rickroll()">
+        🔵  НАЖАТЬ СЮДА
+      </button>
+
+      <!-- Вторая кнопка -->
+      <button class="locker-button" onclick="openLocker()">
+        🖥️  ЗАПУСТИТЬ ИМИТАЦИЮ
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Окно имитации -->
+  <div class="overlay" id="lockerOverlay">
+
+    <div class="locker">
+
+      <div class="warning">
+        ⚠️  Это безопасная имитация.<br>
+        Она не блокирует компьютер и не изменяет Windows.
+      </div>
+
+      <h2>🔒 Образовательная имитация</h2>
+
+      <div class="timer" id="timer">
+        120 сек
+      </div>
+
+      <label for="password">
+        Введите пароль для разблокировки:
+      </label>
+
+      <input
+        id="password"
+        class="password"
+        type="password"
+        placeholder="Пароль"
+        autocomplete="off"
+      >
+
+      <br>
+
+      <button class="unlock" onclick="checkPassword()">
+        🔓 Разблокировать
+      </button>
+
+      <div class="hint">
+        Подсказка: пароль <b>1234</b>
+      </div>
+
+      <button class="exit" onclick="closeLocker()">
+        ✕ Выйти из имитации
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Всплывающее сообщение -->
+  <div class="message" id="message">
+
+    <h3 id="messageTitle"></h3>
+
+    <p id="messageText"></p>
+
+    <button onclick="closeMessage()">
+      OK
     </button>
 
   </div>
+
+
+  <script>
+
+    /* Рикролл */
+    function rickroll() {
+      location.href =
+        "https://youtu.be/dQw4w9WgXcQ?si=Tssh4ZjpdSwDErZF";
+    }
+
+
+    /* Переменные имитации */
+    let timeLeft = 120;
+    let timerInterval = null;
+
+
+    /* Открыть имитацию */
+    function openLocker() {
+
+      timeLeft = 120;
+
+      document.getElementById("timer").textContent =
+        timeLeft + " сек";
+09:54
+document.getElementById("lockerOverlay")
+        .classList.add("active");
+
+      document.getElementById("password").value = "";
+
+      document.getElementById("password").focus();
+
+      clearInterval(timerInterval);
+
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+
+    /* Таймер */
+    function updateTimer() {
+
+      timeLeft--;
+
+      document.getElementById("timer").textContent =
+        timeLeft + " сек";
+
+      if (timeLeft <= 0) {
+
+        clearInterval(timerInterval);
+
+        showMessage(
+          "⏰ Таймер",
+          "Время вышло! Имитация будет закрыта."
+        );
+
+        closeLocker();
+      }
+    }
+
+
+    /* Проверка пароля */
+    function checkPassword() {
+
+      const password =
+        document.getElementById("password").value;
+
+      if (password === "1234") {
+
+        clearInterval(timerInterval);
+
+        closeLocker();
+
+        showMessage(
+          "✅ Успех",
+          "Пароль верный! Окно имитации закрыто."
+        );
+
+      } else {
+
+        showMessage(
+          "❌ Ошибка",
+          "Неверный пароль! Попробуйте ещё раз."
+        );
+
+      }
+    }
+
+
+    /* Закрыть имитацию */
+    function closeLocker() {
+
+      clearInterval(timerInterval);
+
+      document.getElementById("lockerOverlay")
+        .classList.remove("active");
+    }
+
+
+    /* Enter = проверить пароль */
+    document.getElementById("password")
+      .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+          checkPassword();
+        }
+
+      });
+
+
+    /* Показать сообщение */
+    function showMessage(title, text) {
+
+      document.getElementById("messageTitle")
+        .textContent = title;
+
+      document.getElementById("messageText")
+        .textContent = text;
+
+      document.getElementById("message")
+        .classList.add("active");
+    }
+
+
+    /* Закрыть сообщение */
+    function closeMessage() {
+
+      document.getElementById("message")
+        .classList.remove("active");
+    }
+
+  </script>
 
 </body>
 </html>
