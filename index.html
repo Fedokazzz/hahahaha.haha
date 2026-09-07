@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Очень важный сайт</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+
+      background:
+        radial-gradient(circle at 20% 20%, #6c63ff 0%, transparent 30%),
+        radial-gradient(circle at 80% 80%, #ff4ecd 0%, transparent 30%),
+        linear-gradient(135deg, #11113a, #24105c, #0b1026);
+    }
+
+    /* Светящиеся круги */
+    body::before,
+    body::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: float 7s ease-in-out infinite alternate;
+    }
+
+    body::before {
+      background: #00d9ff;
+      top: -100px;
+      left: -100px;
+    }
+
+    body::after {
+      background: #ff00a8;
+      right: -100px;
+      bottom: -100px;
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+      from {
+        transform: translate(0, 0);
+      }
+      to {
+        transform: translate(60px, -40px);
+      }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: min(90%, 550px);
+      padding: 45px 35px;
+      text-align: center;
+
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 30px;
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.35),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+
+      color: white;
+    }
+
+    h1 {
+      font-size: clamp(30px, 8vw, 48px);
+      margin: 0 0 20px;
+      text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      font-size: 19px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 17px 38px;
+
+      font-size: 19px;
+      font-weight: bold;
+      color: white;
+
+      background: linear-gradient(135deg, #1683ff, #0057ff);
+      border: none;
+      border-radius: 15px;
+
+      cursor: pointer;
+
+      box-shadow: 0 10px 25px rgba(0, 100, 255, 0.4);
+
+      transition: 0.25s;
+    }
+
+    button:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 15px 35px rgba(0, 120, 255, 0.6);
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <h1>🤯  ТЫ НЕ ПОВЕРИШЬ!</h1>
+
+    <p>
+      Этот сайт настолько важный, что его нельзя просто так закрыть.
+      <br><br>
+      Здесь находится информация, которая изменит твою жизнь.
+      Возможно.
+      <br><br>
+      Нажми кнопку. Ну давай. Чего ты боишься? 💀 
+    </p>
+
+    <button onclick="location.href='https://youtu.be/dQw4w9WgXcQ?si=Tssh4ZjpdSwDErZF'">
+      🔵  НАЖАТЬ СЮДА
+    </button>
+
+  </div>
+
+</body>
+</html>
