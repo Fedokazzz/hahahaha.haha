@@ -1,462 +1,418 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Очень важный сайт</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<title>Очень важный сайт</title>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at 20% 20%, #6c63ff 0%, transparent 30%),
-        radial-gradient(circle at 80% 80%, #ff4ecd 0%, transparent 30%),
-        linear-gradient(135deg, #11113a, #24105c, #0b1026);
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body::before,
-    body::after {
-      content: "";
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.5;
-      animation: float 7s ease-in-out infinite alternate;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #11113a, #24105c, #0b1026);
+  color: white;
+}
 
-    body::before {
-      background: #00d9ff;
-      top: -100px;
-      left: -100px;
-    }
+.card {
+  width: 90%;
+  max-width: 550px;
+  padding: 40px 25px;
+  text-align: center;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 25px;
+  backdrop-filter: blur(15px);
+}
 
-    body::after {
-      background: #ff00a8;
-      right: -100px;
-      bottom: -100px;
-      animation-delay: 2s;
-    }
+h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
 
-    @keyframes float {
-      from {
-        transform: translate(0, 0);
-      }
-      to {
-        transform: translate(60px, -40px);
-      }
-    }
+p {
+  font-size: 18px;
+  line-height: 1.6;
+}
 
-    .card {
-      position: relative;
-      z-index: 1;
-      width: min(90%, 550px);
-      padding: 45px 35px;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 30px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.35),
-        inset 0 1px 1px rgba(255, 255, 255, 0.2);
-      color: white;
-    }
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+}
 
-    h1 {
-      font-size: clamp(30px, 8vw, 48px);
-      margin: 0 0 20px;
-      text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    }
+button {
+  width: 90%;
+  max-width: 350px;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #087cff;
+}
 
-    p {
-      font-size: 19px;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.85);
-    }
+button:hover {
+  transform: scale(1.03);
+}
 
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      margin-top: 20px;
-    }
+.locker-button {
+  background: #d90000;
+}
 
-    button {
-      padding: 17px 38px;
-      font-size: 19px;
-      font-weight: bold;
-      color: white;
-      background: linear-gradient(135deg, #1683ff, #0057ff);
-      border: none;
-      border-radius: 15px;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(0, 100, 255, 0.4);
-      transition: 0.25s;
-    }
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.8);
+  z-index: 100;
+}
 
-    button:hover {
-      transform: translateY(-4px) scale(1.03);
-    }
+.overlay.active {
+  display: flex;
+}
 
-    button:active {
-      transform: scale(0.96);
-    }
+.locker {
+  width: 90%;
+  max-width: 450px;
+  padding: 30px;
+  background: white;
+  color: #222;
+  border-radius: 15px;
+  text-align: center;
+}
 
-    .locker-button {
-      background: linear-gradient(135deg, #ff3131, #b40000);
-    }
+.warning {
+  padding: 12px;
+  margin-bottom: 20px;
+  background: #fff0d0;
+  border: 1px solid #e2b66d;
+  border-radius: 8px;
+  color: #8a4b00;
+}
 
-    .overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.78);
-      backdrop-filter: blur(8px);
-    }
+.timer {
+  margin: 20px 0;
+  font-size: 30px;
+  font-weight: bold;
+  color: red;
+}
 
-    .overlay.active {
-      display: flex;
-    }
+.password {
+  width: 80%;
+  padding: 12px;
+  font-size: 20px;
+  text-align: center;
+}
 
-    .locker {
-      width: min(92%, 500px);
-      padding: 30px;
-      background: #f4f4f4;
-      color: #222;
-      border-radius: 12px;
-      border: 1px solid #aaa;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.7);
-      text-align: center;
-    }
+.unlock {
+  margin-top: 15px;
+  background: #087cff;
+  width: auto;
+}
 
-    .locker h2 {
-      margin: 5px 0 20px;
-    }
+.exit {
+  margin-top: 15px;
+  background: #777;
+  width: auto;
+  font-size: 14px;
+}
 
-    .warning {
-      padding: 10px;
-      margin-bottom: 12px;
-      color: #8a4b00;
-      background: #fff0d0;
-      border: 1px solid #e2b66d;
-      border-radius: 7px;
-      font-size: 13px;
-    }
+.message {
+  position: fixed;
+  display: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  max-width: 400px;
+  padding: 25px;
+  background: white;
+  color: #222;
+  border-radius: 15px;
+  text-align: center;
+  z-index: 200;
+}
 
-    .timer {
-      margin: 15px 0;
-      font-size: 28px;
-      font-weight: bold;
-      color: #e00000;
-    }
-
-    .password {
-      width: 80%;
-      padding: 12px;
-      font-size: 20px;
-      text-align: center;
-      border: 1px solid #999;
-      border-radius: 6px;
-      outline: none;
-    }
-
-    .unlock {
-      margin-top: 15px;
-      padding: 12px 25px;
-      font-size: 16px;
-      background: #006cff;
-      border-radius: 7px;
-      box-shadow: none;
-    }
-
-    .exit {
-      display: block;
-      margin: 15px auto 0;
-
-
-
-padding: 8px 18px;
-      font-size: 13px;
-      font-weight: normal;
-      color: #555;
-      background: #ddd;
-      box-shadow: none;
-    }
-
-    .hint {
-      margin-top: 15px;
-      color: #777;
-      font-size: 12px;
-    }
-
-    .message {
-      display: none;
-      position: fixed;
-      z-index: 200;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: min(90%, 400px);
-      padding: 25px;
-      background: white;
-      color: #222;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-      text-align: center;
-    }
-
-    .message.active {
-      display: block;
-    }
-
-    .message button {
-      margin-top: 15px;
-      padding: 10px 25px;
-      font-size: 15px;
-    }
-  </style>
+.message.active {
+  display: block;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="card">
+<div class="card">
 
-    <h1>🤯  ТЫ НЕ ПОВЕРИШЬ!</h1>
+  <h1>🤯  ТЫ НЕ ПОВЕРИШЬ!</h1>
 
-    <p>
-      Этот сайт настолько важный, что его нельзя просто так закрыть.
-      <br><br>
-      Здесь находится информация, которая изменит твою жизнь.
-      Возможно.
-      <br><br>
-      Нажми кнопку. Ну давай. Чего ты боишься? 💀 
-    </p>
+  <p>
+    Этот сайт настолько важный, что его нельзя просто так закрыть.
+    <br><br>
+    Здесь находится информация, которая изменит твою жизнь.
+    Возможно.
+    <br><br>
+    Нажми кнопку. Ну давай. Чего ты боишься? 💀 
+  </p>
 
-    <div class="buttons">
+  <div class="buttons">
 
-      <button id="rickrollButton">
-        🔵  НАЖАТЬ СЮДА
-      </button>
+    <button id="rickrollButton">
+      🔵  НАЖАТЬ СЮДА
+    </button>
 
-      <button id="lockerButton" class="locker-button">
-        🖥️  ЗАПУСТИТЬ ИМИТАЦИЮ
-      </button>
-
-    </div>
-
-  </div>
-
-  <div class="overlay" id="lockerOverlay">
-
-    <div class="locker">
-
-      <div class="warning">
-        ⚠️  Это безопасная имитация.<br>
-        Она не блокирует компьютер и не изменяет Windows.
-      </div>
-
-      <h2>🔒 Образовательная имитация</h2>
-
-      <div class="timer" id="timer">120 сек</div>
-
-      <label>
-        Введите пароль для разблокировки:
-      </label>
-
-      <br>
-
-      <input
-        id="password"
-        class="password"
-        type="password"
-        placeholder="Пароль"
-        autocomplete="off"
-      >
-
-      <br>
-
-      <button id="unlockButton" class="unlock">
-        🔓 Разблокировать
-      </button>
-
-      <div class="hint">
-        Подсказка: пароль <b>1234</b>
-      </div>
-
-      <button id="exitButton" class="exit">
-        ✕ Выйти из имитации
-      </button>
-
-    </div>
-
-  </div>
-
-  <div class="message" id="message">
-
-    <h3 id="messageTitle"></h3>
-
-    <p id="messageText"></p>
-
-    <button id="messageButton">
-      OK
+    <button id="lockerButton" class="locker-button">
+      🖥️  ЗАПУСТИТЬ ИМИТАЦИЮ
     </button>
 
   </div>
 
-
-  <script>
-    let timeLeft = 120;
-    let timerInterval = null;
-
-    const rickrollButton = document.getElementById("rickrollButton");
-    const lockerButton = document.getElementById("lockerButton");
-    const lockerOverlay = document.getElementById("lockerOverlay");
-    const passwordInput = document.getElementById("password");
-    const timer = document.getElementById("timer");
-    const unlockButton = document.getElementById("unlockButton");
-    const exitButton = document.getElementById("exitButton");
-
-    const message = document.getElementById("message");
-    const messageTitle = document.getElementById("messageTitle");
-    const messageText = document.getElementById("messageText");
-    const messageButton = document.getElementById("messageButton");
+</div>
 
 
-    // 🔵  Первая кнопка
-    rickrollButton.addEventListener("click", function () {
-      window.location.href = "https://youtu.be/dQw4w9WgXcQ";
-    });
+<div class="overlay" id="lockerOverlay">
+
+  <div class="locker">
+
+    <div class="warning">
+      ⚠️  Безопасная имитация.<br>
+      Она не блокирует компьютер и не изменяет Windows.
+    </div>
+
+    <h2>🔒 Образовательная имитация</h2>
+
+    <div class="timer" id="timer">
+      120 сек
+    </div>
+
+    <p>
+      Введите пароль для разблокировки:
+    </p>
+
+    <input
+      id="password"
+      class="password"
+      type="password"
+      placeholder="Пароль"
+    >
+
+    <br>
+
+    <button id="unlockButton" class="unlock">
+      🔓 Разблокировать
+    </button>
+
+    <p>
+      Подсказка: пароль <b>1234</b>
+    </p>
+
+    <button id="exitButton" class="exit">
+      ✕ Выйти
+    </button>
+
+  </div>
+
+</div>
 
 
-    // 🖥️  Вторая кнопка
-    lockerButton.addEventListener("click", function () {
-      openLocker();
-    });
+<div class="message" id="message">
+
+  <h2 id="messageTitle"></h2>
+
+  <p id="messageText"></p>
+
+  <button id="messageButton">
+    OK
+  </button>
+
+</div>
 
 
-    // Открытие имитации
-    function openLocker() {
+<script>
 
-      timeLeft = 120;
+const rickrollButton =
+  document.getElementById("rickrollButton");
 
-      timer.textContent = timeLeft + " сек";
+const lockerButton =
+  document.getElementById("lockerButton");
 
-      passwordInput.value = "";
+const lockerOverlay =
+  document.getElementById("lockerOverlay");
 
-      lockerOverlay.classList.add("active");
+const passwordInput =
+  document.getElementById("password");
 
-      passwordInput.focus();
+const unlockButton =
+  document.getElementById("unlockButton");
+  const exitButton =
+  document.getElementById("exitButton");
+
+const timer =
+  document.getElementById("timer");
+
+const message =
+  document.getElementById("message");
+
+const messageTitle =
+  document.getElementById("messageTitle");
+
+const messageText =
+  document.getElementById("messageText");
+
+const messageButton =
+  document.getElementById("messageButton");
+
+
+let timeLeft = 120;
+let timerInterval = null;
+
+
+/* Первая кнопка */
+
+rickrollButton.addEventListener("click", function() {
+
+  window.location.href =
+    "https://youtu.be/dQw4w9WgXcQ";
+
+});
+
+
+/* Вторая кнопка */
+
+lockerButton.addEventListener("click", function() {
+
+  timeLeft = 120;
+
+  timer.textContent =
+    timeLeft + " сек";
+
+  passwordInput.value = "";
+
+  lockerOverlay.classList.add("active");
+
+  passwordInput.focus();
+
+  clearInterval(timerInterval);
+
+  timerInterval = setInterval(function() {
+
+    timeLeft--;
+
+    timer.textContent =
+      timeLeft + " сек";
+
+    if (timeLeft <= 0) {
 
       clearInterval(timerInterval);
 
-      timerInterval = setInterval(function () {
-
-        timeLeft--;
-
-        timer.textContent = timeLeft + " сек";
-
-        if (timeLeft <= 0) {
-
-          clearInterval(timerInterval);
-
-          closeLocker();
-
-          showMessage(
-            "⏰ Таймер",
-            "Время вышло! Имитация завершена."
-          );
-        }
-
-      }, 1000);
-    }
-
-
-    // 🔓 Проверка пароля
-
-unlockButton.addEventListener("click", function () {
-
-      if (passwordInput.value === "1234") {
-
-        clearInterval(timerInterval);
-
-        closeLocker();
-
-        showMessage(
-          "✅ Успех",
-          "Пароль верный! Окно имитации закрыто."
-        );
-
-      } else {
-
-        showMessage(
-          "❌ Ошибка",
-          "Неверный пароль! Попробуйте ещё раз."
-        );
-
-      }
-
-    });
-
-
-    // Enter
-    passwordInput.addEventListener("keydown", function (event) {
-
-      if (event.key === "Enter") {
-        unlockButton.click();
-      }
-
-    });
-
-
-    // Закрытие
-    exitButton.addEventListener("click", function () {
       closeLocker();
-    });
 
-
-    function closeLocker() {
-
-      clearInterval(timerInterval);
-
-      lockerOverlay.classList.remove("active");
+      showMessage(
+        "⏰ Время вышло",
+        "Имитация завершена."
+      );
 
     }
 
+  }, 1000);
 
-    function showMessage(title, text) {
-
-      messageTitle.textContent = title;
-      messageText.textContent = text;
-
-      message.classList.add("active");
-
-    }
+});
 
 
-    messageButton.addEventListener("click", function () {
+/* Проверка пароля */
 
-      message.classList.remove("active");
+unlockButton.addEventListener("click", function() {
 
-    });
+  if (passwordInput.value === "1234") {
 
-  </script>
+    clearInterval(timerInterval);
+
+    closeLocker();
+
+    showMessage(
+      "✅ Успех",
+      "Пароль правильный!"
+    );
+
+  } else {
+
+    showMessage(
+      "❌ Ошибка",
+      "Неверный пароль!"
+    );
+
+  }
+
+});
+
+
+/* Enter */
+
+passwordInput.addEventListener("keydown", function(event) {
+
+  if (event.key === "Enter") {
+
+    unlockButton.click();
+
+  }
+
+});
+
+
+/* Выход */
+
+exitButton.addEventListener("click", function() {
+
+  closeLocker();
+
+});
+
+
+/* Закрытие */
+
+function closeLocker() {
+
+  clearInterval(timerInterval);
+
+  lockerOverlay.classList.remove("active");
+
+}
+
+
+/* Сообщение */
+
+function showMessage(title, text) {
+
+  messageTitle.textContent = title;
+
+  messageText.textContent = text;
+
+  message.classList.add("active");
+
+}
+
+
+messageButton.addEventListener("click", function() {
+
+  message.classList.remove("active");
+
+});
+
+</script>
 
 </body>
 </html>
