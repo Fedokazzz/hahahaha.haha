@@ -1,418 +1,1093 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Очень важный сайт</title>
-
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #11113a, #24105c, #0b1026);
-  color: white;
-}
-
-.card {
-  width: 90%;
-  max-width: 550px;
-  padding: 40px 25px;
-  text-align: center;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 25px;
-  backdrop-filter: blur(15px);
-}
-
-h1 {
-  font-size: 42px;
-  margin-bottom: 20px;
-}
-
-p {
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  margin-top: 25px;
-}
-
-button {
-  width: 90%;
-  max-width: 350px;
-  padding: 16px 20px;
-  border: none;
-  border-radius: 12px;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  background: #087cff;
-}
-
-button:hover {
-  transform: scale(1.03);
-}
-
-.locker-button {
-  background: #d90000;
-}
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.8);
-  z-index: 100;
-}
-
-.overlay.active {
-  display: flex;
-}
-
-.locker {
-  width: 90%;
-  max-width: 450px;
-  padding: 30px;
-  background: white;
-  color: #222;
-  border-radius: 15px;
-  text-align: center;
-}
-
-.warning {
-  padding: 12px;
-  margin-bottom: 20px;
-  background: #fff0d0;
-  border: 1px solid #e2b66d;
-  border-radius: 8px;
-  color: #8a4b00;
-}
-
-.timer {
-  margin: 20px 0;
-  font-size: 30px;
-  font-weight: bold;
-  color: red;
-}
-
-.password {
-  width: 80%;
-  padding: 12px;
-  font-size: 20px;
-  text-align: center;
-}
-
-.unlock {
-  margin-top: 15px;
-  background: #087cff;
-  width: auto;
-}
-
-.exit {
-  margin-top: 15px;
-  background: #777;
-  width: auto;
-  font-size: 14px;
-}
-
-.message {
-  position: fixed;
-  display: none;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 85%;
-  max-width: 400px;
-  padding: 25px;
-  background: white;
-  color: #222;
-  border-radius: 15px;
-  text-align: center;
-  z-index: 200;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.message.active {
-  display: block;
-}
-</style>
-</head>
+  <title>Очень важный сайт</title>
 
-<body>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<div class="card">
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+    }
 
-  <h1>🤯  ТЫ НЕ ПОВЕРИШЬ!</h1>
+    body {
+      min-height: 100vh;
 
-  <p>
-    Этот сайт настолько важный, что его нельзя просто так закрыть.
-    <br><br>
-    Здесь находится информация, которая изменит твою жизнь.
-    Возможно.
-    <br><br>
-    Нажми кнопку. Ну давай. Чего ты боишься? 💀 
-  </p>
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-  <div class="buttons">
+      padding: 20px;
 
-    <button id="rickrollButton">
-      🔵  НАЖАТЬ СЮДА
-    </button>
+      font-family: Arial, sans-serif;
+      color: white;
 
-    <button id="lockerButton" class="locker-button">
-      🖥️  ЗАПУСТИТЬ ИМИТАЦИЮ
-    </button>
+      /* ГРАДИЕНТНЫЙ ФОН */
+      background: linear-gradient(
+        135deg,
+        #12002f,
+        #3b0a75,
+        #8a168c,
+        #ff2674
+      );
 
-  </div>
+      background-size: 400% 400%;
 
-</div>
+      animation: gradientMove 10s ease infinite;
+    }
 
+    /* Анимация градиента */
 
-<div class="overlay" id="lockerOverlay">
+    @keyframes gradientMove {
 
-  <div class="locker">
+      0% {
+        background-position: 0% 50%;
+      }
 
-    <div class="warning">
-      ⚠️  Безопасная имитация.<br>
-      Она не блокирует компьютер и не изменяет Windows.
-    </div>
+      50% {
+        background-position: 100% 50%;
+      }
 
-    <h2>🔒 Образовательная имитация</h2>
+      100% {
+        background-position: 0% 50%;
+      }
 
-    <div class="timer" id="timer">
-      120 сек
-    </div>
+    }
 
-    <p>
-      Введите пароль для разблокировки:
-    </p>
 
-    <input
-      id="password"
-      class="password"
-      type="password"
-      placeholder="Пароль"
-    >
+    /* =========================
+       ГЛАВНАЯ КАРТОЧКА
+       ========================= */
 
-    <br>
+    .card {
+      width: 100%;
+      max-width: 550px;
 
-    <button id="unlockButton" class="unlock">
-      🔓 Разблокировать
-    </button>
+      padding: 45px 30px;
 
-    <p>
-      Подсказка: пароль <b>1234</b>
-    </p>
+      text-align: center;
 
-    <button id="exitButton" class="exit">
-      ✕ Выйти
-    </button>
+      background: rgba(255, 255, 255, 0.13);
 
-  </div>
+      border: 1px solid rgba(255, 255, 255, 0.25);
 
-</div>
+      border-radius: 30px;
 
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
 
-<div class="message" id="message">
+      box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.4);
 
-  <h2 id="messageTitle"></h2>
+      position: relative;
+      z-index: 1;
+    }
 
-  <p id="messageText"></p>
 
-  <button id="messageButton">
-    OK
-  </button>
+    h1 {
+      margin: 0 0 20px;
 
-</div>
+      font-size: clamp(
+        30px,
+        8vw,
+        48px
+      );
 
+      text-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.35);
+    }
 
-<script>
 
-const rickrollButton =
-  document.getElementById("rickrollButton");
+    .main-text {
+      font-size: 19px;
 
-const lockerButton =
-  document.getElementById("lockerButton");
+      line-height: 1.6;
 
-const lockerOverlay =
-  document.getElementById("lockerOverlay");
+      color: rgba(
+        255,
+        255,
+        255,
+        0.9
+      );
+    }
 
-const passwordInput =
-  document.getElementById("password");
 
-const unlockButton =
-  document.getElementById("unlockButton");
-  const exitButton =
-  document.getElementById("exitButton");
+    /* =========================
+       КНОПКИ
+       ========================= */
 
-const timer =
-  document.getElementById("timer");
+    .buttons {
 
-const message =
-  document.getElementById("message");
+      display: flex;
 
-const messageTitle =
-  document.getElementById("messageTitle");
+      flex-direction: column;
 
-const messageText =
-  document.getElementById("messageText");
+      align-items: center;
 
-const messageButton =
-  document.getElementById("messageButton");
+      gap: 14px;
 
+      margin-top: 25px;
 
-let timeLeft = 120;
-let timerInterval = null;
+    }
 
 
-/* Первая кнопка */
+    button {
 
-rickrollButton.addEventListener("click", function() {
+      width: 90%;
 
-  window.location.href =
-    "https://youtu.be/dQw4w9WgXcQ";
+      max-width: 360px;
 
-});
+      padding: 16px 25px;
 
+      border: none;
 
-/* Вторая кнопка */
+      border-radius: 14px;
 
-lockerButton.addEventListener("click", function() {
+      color: white;
 
-  timeLeft = 120;
+      background: linear-gradient(
+        135deg,
+        #1683ff,
+        #0057ff
+      );
 
-  timer.textContent =
-    timeLeft + " сек";
+      font-size: 18px;
 
-  passwordInput.value = "";
+      font-weight: bold;
 
-  lockerOverlay.classList.add("active");
+      cursor: pointer;
 
-  passwordInput.focus();
+      box-shadow:
+        0 10px 25px
+        rgba(0, 0, 0, 0.25);
 
-  clearInterval(timerInterval);
+      transition:
+        transform 0.2s,
+        filter 0.2s;
 
-  timerInterval = setInterval(function() {
+    }
 
-    timeLeft--;
 
-    timer.textContent =
-      timeLeft + " сек";
+    button:hover {
 
-    if (timeLeft <= 0) {
+      transform:
+        translateY(-3px)
+        scale(1.02);
 
-      clearInterval(timerInterval);
+      filter: brightness(1.1);
 
-      closeLocker();
+    }
 
-      showMessage(
-        "⏰ Время вышло",
-        "Имитация завершена."
+
+    button:active {
+
+      transform:
+        scale(0.97);
+
+    }
+
+
+    .locker-button {
+
+      background: linear-gradient(
+        135deg,
+        #ff3131,
+        #b40000
       );
 
     }
 
-  }, 1000);
 
-});
+    /* =========================
+       ОКНО ИМИТАЦИИ
+       ========================= */
+
+    .overlay {
+
+      position: fixed;
+
+      inset: 0;
+
+      display: none;
+
+      justify-content: center;
+
+      align-items: center;
+
+      padding: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(10, 0, 30, 0.96),
+          rgba(80, 0, 50, 0.96)
+        );
+
+      z-index: 1000;
+
+    }
 
 
-/* Проверка пароля */
+    .overlay.active {
 
-unlockButton.addEventListener("click", function() {
+      display: flex;
 
-  if (passwordInput.value === "1234") {
+    }
 
-    clearInterval(timerInterval);
 
-    closeLocker();
+    /* =========================
+       ОКНО "ВИНЛОКЕРА"
+       ========================= */
 
-    showMessage(
-      "✅ Успех",
-      "Пароль правильный!"
+    .locker {
+
+      width: 100%;
+
+      max-width: 500px;
+
+      padding: 30px;
+
+      background: #f4f4f4;
+
+      color: #222;
+
+      border-radius: 14px;
+
+      text-align: center;
+
+      box-shadow:
+        0 25px 80px
+        rgba(0, 0, 0, 0.8);
+
+    }
+
+
+    .locker h2 {
+
+      margin-top: 5px;
+
+      margin-bottom: 20px;
+
+      font-size: 27px;
+
+    }
+
+
+    /* Предупреждение */
+
+    .warning {
+
+      padding: 12px;
+
+      margin-bottom: 18px;
+
+      color: #8a4b00;
+
+      background: #fff0d0;
+
+      border: 1px solid #e2b66d;
+
+      border-radius: 8px;
+      font-size: 13px;
+
+      line-height: 1.4;
+
+    }
+
+
+    /* Таймер */
+
+    .timer {
+
+      margin: 20px 0;
+
+      font-size: 34px;
+
+      font-weight: bold;
+
+      color: #e00000;
+
+    }
+
+
+    .locker-text {
+
+      font-size: 16px;
+
+      line-height: 1.5;
+
+    }
+
+
+    /* Пароль */
+
+    .password {
+
+      width: 85%;
+
+      padding: 13px;
+
+      margin-top: 8px;
+
+      border: 1px solid #999;
+
+      border-radius: 7px;
+
+      font-size: 20px;
+
+      text-align: center;
+
+      outline: none;
+
+    }
+
+
+    .password:focus {
+
+      border-color: #006cff;
+
+      box-shadow:
+        0 0 0 3px
+        rgba(0, 108, 255, 0.15);
+
+    }
+
+
+    /* Разблокировка */
+
+    .unlock {
+
+      width: auto;
+
+      margin-top: 15px;
+
+      padding: 12px 25px;
+
+      background: #006cff;
+
+      box-shadow: none;
+
+      font-size: 16px;
+
+    }
+
+
+    /* Подсказка */
+
+    .hint {
+
+      margin-top: 15px;
+
+      color: #777;
+
+      font-size: 13px;
+
+    }
+
+
+    /* Выход */
+
+    .exit {
+
+      width: auto;
+
+      margin-top: 15px;
+
+      padding: 9px 20px;
+
+      background: #ddd;
+
+      color: #555;
+
+      box-shadow: none;
+
+      font-size: 13px;
+
+      font-weight: normal;
+
+    }
+
+
+    /* =========================
+       ВСПЛЫВАЮЩЕЕ СООБЩЕНИЕ
+       ========================= */
+
+    .message {
+
+      position: fixed;
+
+      left: 50%;
+
+      top: 50%;
+
+      transform:
+        translate(-50%, -50%);
+
+      display: none;
+
+      width: 90%;
+
+      max-width: 400px;
+
+      padding: 25px;
+
+      background: white;
+
+      color: #222;
+
+      border-radius: 14px;
+
+      text-align: center;
+
+      box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.7);
+
+      z-index: 2000;
+
+    }
+
+
+    .message.active {
+
+      display: block;
+
+    }
+
+
+    .message h3 {
+
+      margin-top: 0;
+
+      font-size: 24px;
+
+    }
+
+
+    .message p {
+
+      font-size: 16px;
+
+      line-height: 1.5;
+
+    }
+
+
+    .message button {
+
+      width: auto;
+
+      margin-top: 10px;
+
+      padding: 10px 25px;
+
+      font-size: 15px;
+
+    }
+
+
+    /* =========================
+       FULLSCREEN
+       ========================= */
+
+    :fullscreen {
+
+      background: linear-gradient(
+        135deg,
+        #12002f,
+        #3b0a75,
+        #8a168c,
+        #ff2674
+      );
+
+      background-size: 400% 400%;
+
+      animation:
+        gradientMove 10s ease infinite;
+
+    }
+
+
+    /* =========================
+       ТЕЛЕФОН
+       ========================= */
+
+    @media (max-width: 500px) {
+
+      .card {
+
+        padding: 35px 20px;
+
+      }
+
+
+      h1 {
+
+        font-size: 32px;
+
+      }
+
+
+      .main-text {
+
+        font-size: 17px;
+
+      }
+
+
+      .locker {
+
+        padding: 22px 18px;
+
+      }
+
+
+      .locker h2 {
+
+        font-size: 23px;
+
+      }
+
+
+      .timer {
+
+        font-size: 30px;
+
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       ГЛАВНАЯ
+       ========================= -->
+
+  <div class="card">
+
+    <h1>
+      🤯  ТЫ НЕ ПОВЕРИШЬ!
+    </h1>
+
+
+    <p class="main-text">
+
+      Этот сайт настолько важный,
+      что его нельзя просто так закрыть.
+
+      <br><br>
+
+      Здесь находится информация,
+      которая изменит твою жизнь.
+
+      <br>
+
+      Возможно.
+
+      <br><br>
+
+      Нажми кнопку.
+      Ну давай.
+      Чего ты боишься? 💀 
+
+    </p>
+
+
+    <div class="buttons">
+
+
+      <button id="rickrollButton">
+
+        🔵  НАЖАТЬ СЮДА
+
+      </button>
+
+
+      <button
+        id="lockerButton"
+        class="locker-button"
+      >
+
+        🖥️  ЗАПУСТИТЬ ИМИТАЦИЮ
+
+      </button>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================
+       ИМИТАЦИЯ
+       ========================= -->
+
+  <div
+    class="overlay"
+    id="lockerOverlay"
+  >
+
+    <div class="locker">
+
+
+      <div class="warning">
+
+        ⚠️  Это безопасная имитация.
+
+        <br>
+
+        Она не блокирует компьютер
+        и не изменяет Windows.
+
+      </div>
+
+
+      <h2>
+
+        🔒 Образовательная имитация
+
+      </h2>
+
+
+      <div
+        class="timer"
+        id="timer"
+      >
+        120 сек
+
+      </div>
+
+
+      <p class="locker-text">
+
+        Введите пароль
+        для разблокировки:
+
+      </p>
+
+
+      <input
+        id="password"
+        class="password"
+        type="password"
+        placeholder="Пароль"
+        autocomplete="off"
+      >
+
+
+      <br>
+
+
+      <button
+        id="unlockButton"
+        class="unlock"
+      >
+
+        🔓 Разблокировать
+
+      </button>
+
+
+      <div class="hint">
+
+        Подсказка:
+        пароль <b>1234</b>
+
+      </div>
+
+
+      <button
+        id="exitButton"
+        class="exit"
+      >
+
+        ✕ Выйти из имитации
+
+      </button>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================
+       СООБЩЕНИЕ
+       ========================= -->
+
+  <div
+    class="message"
+    id="message"
+  >
+
+    <h3 id="messageTitle"></h3>
+
+    <p id="messageText"></p>
+
+    <button id="messageButton">
+
+      OK
+
+    </button>
+
+  </div>
+
+
+
+  <!-- =========================
+       JAVASCRIPT
+       ========================= -->
+
+  <script>
+
+    const rickrollButton =
+      document.getElementById(
+        "rickrollButton"
+      );
+
+
+    const lockerButton =
+      document.getElementById(
+        "lockerButton"
+      );
+
+
+    const lockerOverlay =
+      document.getElementById(
+        "lockerOverlay"
+      );
+
+
+    const passwordInput =
+      document.getElementById(
+        "password"
+      );
+
+
+    const unlockButton =
+      document.getElementById(
+        "unlockButton"
+      );
+
+
+    const exitButton =
+      document.getElementById(
+        "exitButton"
+      );
+
+
+    const timer =
+      document.getElementById(
+        "timer"
+      );
+
+
+    const message =
+      document.getElementById(
+        "message"
+      );
+
+
+    const messageTitle =
+      document.getElementById(
+        "messageTitle"
+      );
+
+
+    const messageText =
+      document.getElementById(
+        "messageText"
+      );
+
+
+    const messageButton =
+      document.getElementById(
+        "messageButton"
+      );
+
+
+    let timeLeft = 120;
+
+    let timerInterval = null;
+
+
+
+    /* =========================
+       YOUTUBE
+       ========================= */
+
+    rickrollButton.addEventListener(
+      "click",
+      function () {
+
+        window.location.href =
+          "https://youtu.be/dQw4w9WgXcQ";
+
+      }
     );
 
-  } else {
 
-    showMessage(
-      "❌ Ошибка",
-      "Неверный пароль!"
+
+    /* =========================
+       ЗАПУСК ИМИТАЦИИ
+       ========================= */
+
+    lockerButton.addEventListener(
+      "click",
+      async function () {
+
+
+        /* Включаем fullscreen */
+
+        try {
+
+          if (!document.fullscreenElement) {
+
+            await document
+              .documentElement
+              .requestFullscreen();
+
+          }
+
+        } catch (error) {
+
+          console.log(
+            "Fullscreen недоступен"
+          );
+
+        }
+
+
+        /* Сбрасываем таймер */
+
+        timeLeft = 120;
+
+        timer.textContent =
+          timeLeft + " сек";
+
+
+        /* Очищаем пароль */
+
+        passwordInput.value = "";
+
+
+        /* Показываем имитацию */
+
+        lockerOverlay.classList.add(
+          "active"
+        );
+
+
+        /* Ставим курсор */
+
+        passwordInput.focus();
+
+
+        /* Останавливаем старый таймер */
+
+        clearInterval(
+          timerInterval
+        );
+
+
+        /* Новый таймер */
+
+        timerInterval =
+          setInterval(
+            function () {
+
+              timeLeft--;
+
+              timer.textContent =
+                timeLeft + " сек";
+
+
+              if (timeLeft <= 0) {
+
+                clearInterval(
+                  timerInterval
+                );
+
+                closeLocker();
+
+
+                showMessage(
+                  "⏰ Время вышло",
+                  "Имитация завершена."
+                );
+
+              }
+
+            },
+            1000
+          );
+
+      }
     );
 
-  }
-
-});
 
 
-/* Enter */
+    /* =========================
+       ПАРОЛЬ
+       ========================= */
 
-passwordInput.addEventListener("keydown", function(event) {
-
-  if (event.key === "Enter") {
-
-    unlockButton.click();
-
-  }
-
-});
+    unlockButton.addEventListener(
+      "click",
+      function () {
 
 
-/* Выход */
-
-exitButton.addEventListener("click", function() {
-
-  closeLocker();
-
-});
-
-
-/* Закрытие */
-
-function closeLocker() {
-
-  clearInterval(timerInterval);
-
-  lockerOverlay.classList.remove("active");
-
-}
+        if (
+          passwordInput.value === "1234"
+        ) {
+          clearInterval(
+            timerInterval
+          );
 
 
-/* Сообщение */
-
-function showMessage(title, text) {
-
-  messageTitle.textContent = title;
-
-  messageText.textContent = text;
-
-  message.classList.add("active");
-
-}
+          closeLocker();
 
 
-messageButton.addEventListener("click", function() {
+          showMessage(
+            "✅ Успех",
+            "Пароль правильный! Имитация завершена."
+          );
 
-  message.classList.remove("active");
 
-});
+        } else {
 
-</script>
+
+          showMessage(
+            "❌ Ошибка",
+            "Неверный пароль! Попробуйте ещё раз."
+          );
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================
+       ENTER
+       ========================= */
+
+    passwordInput.addEventListener(
+      "keydown",
+      function (event) {
+
+        if (event.key === "Enter") {
+
+          unlockButton.click();
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================
+       ВЫХОД
+       ========================= */
+
+    exitButton.addEventListener(
+      "click",
+      function () {
+
+        closeLocker();
+
+      }
+    );
+
+
+
+    /* =========================
+       ЗАКРЫТИЕ
+       ========================= */
+
+    function closeLocker() {
+
+
+      clearInterval(
+        timerInterval
+      );
+
+
+      lockerOverlay.classList.remove(
+        "active"
+      );
+
+
+      /* Выходим из fullscreen */
+
+      if (
+        document.fullscreenElement
+      ) {
+
+        document.exitFullscreen();
+
+      }
+
+    }
+
+
+
+    /* =========================
+       СООБЩЕНИЕ
+       ========================= */
+
+    function showMessage(
+      title,
+      text
+    ) {
+
+      messageTitle.textContent =
+        title;
+
+      messageText.textContent =
+        text;
+
+      message.classList.add(
+        "active"
+      );
+
+    }
+
+
+
+    /* =========================
+       OK
+       ========================= */
+
+    messageButton.addEventListener(
+      "click",
+      function () {
+
+        message.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+  </script>
 
 </body>
 </html>
+  
